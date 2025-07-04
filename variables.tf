@@ -4,7 +4,7 @@ variable "name" {
 
   validation {
     condition     = length(var.name) >= 1 && length(var.name) <= 64
-    error_message = "IAM Role Name must be between 1 and 64 characters"
+    error_message = "IAM Role Name must be between 1 and 64 characters, got ${length(var.name)}"
   }
 }
 
@@ -28,9 +28,11 @@ variable "principals" {
 
   You'd enter the following for this variable:
 
+  ```terraform
   principals = {
     "Service" = ["cloudfront.amazonaws.com"]
   }
+  ```
   EOT
   type        = map(list(string))
 }
