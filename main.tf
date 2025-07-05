@@ -7,7 +7,8 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_iam_policy" "this" {
-  count       = length(var.policy_documents) > 0 ? 1 : 0
+  count = length(var.policy_documents) > 0 ? 1 : 0
+
   name        = var.policy_name
   description = var.policy_description
   policy      = data.aws_iam_policy_document.permissions_aggregated.json
@@ -21,6 +22,8 @@ resource "aws_iam_policy" "this" {
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
+  count = length(var.policy_documents) > 0 ? 1 : 0
+
   role       = aws_iam_role.this.name
   policy_arn = aws_iam_policy.this[0].arn
 }
