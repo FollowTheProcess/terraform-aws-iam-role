@@ -79,8 +79,8 @@ variable "policy_name" {
   default     = null
 
   validation {
-    condition     = length(var.policy_name) <= 128
-    error_message = "Policy names must be <= 128 characters, got ${length(var.policy_name)}"
+    condition     = var.policy_name != null && length(var.policy_name) <= 128
+    error_message = "Policy names if given must be <= 128 characters, got ${length(var.policy_name)}"
   }
 }
 
