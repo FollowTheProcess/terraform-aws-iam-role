@@ -76,11 +76,11 @@ variable "permissions_boundary" {
 variable "policy_name" {
   description = "The name of the role policy that is visible in the IAM policy manager"
   type        = string
-  default     = null
+  default     = ""
 
   validation {
     condition     = length(var.policy_name) <= 128
-    error_message = "Policy names must be <= 128 characters, got ${length(var.policy_name)}"
+    error_message = "Policy names if given must be <= 128 characters, got ${length(var.policy_name)}"
   }
 }
 
