@@ -1,13 +1,15 @@
 data "aws_iam_policy_document" "assume_role" {
-  for_each = var.principals
+  # Note: can't use a for-each as we need to do the splat later
+  # for the aggregated policy
+  count = length(keys(var.principals))
 
   statement {
     effect  = "Allow"
     actions = var.assume_role_actions
 
     principals {
-      type        = each.key
-      identifiers = each.value
+      type        = element(keys(var.principals), count.index)
+      identifiers = var.principals[element(keys(var.principals), count.index)]
     }
 
     dynamic "condition" {
