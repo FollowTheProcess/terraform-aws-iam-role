@@ -20,6 +20,21 @@ run "name_too_long" {
   expect_failures = [var.name]
 }
 
+run "invalid_path" {
+  variables {
+    name        = "a test role"
+    description = "required"
+    path        = "doesn't begin or end with slash"
+    principals = {
+      "Service" = ["cloudfront.amazonaws.com"]
+    }
+  }
+
+  command = plan
+
+  expect_failures = [var.path]
+}
+
 run "max_session_duration_too_low" {
   variables {
     name        = "test"
