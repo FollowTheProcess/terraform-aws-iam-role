@@ -13,6 +13,17 @@ variable "description" {
   type        = string
 }
 
+variable "path" {
+  description = "Path to the role"
+  type        = string
+  default     = "/"
+
+  validation {
+    condition     = can(regex("^/(.*/)?$", var.path))
+    error_message = "path must begin and end with '/', got ${var.path}"
+  }
+}
+
 variable "principals" {
   description = <<EOT
   Map of type to list of identifiers to allow assuming the role, similar to the `principals` block but in map form.
